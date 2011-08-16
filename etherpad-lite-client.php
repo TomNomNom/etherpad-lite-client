@@ -81,7 +81,10 @@ class EtherpadLiteClient {
   }
 
   // this functions helps you to map your application group ids to etherpad lite group ids 
-  public function getMappedGroup4($groupMapper){
+  public function createGroupIfNotExistsFor($groupMapper){
+    return $this->call("createGroupIfNotExistsFor", array(
+      "groupMapper" => $groupMapper
+    ));
   }
 
   // deletes a group 
@@ -118,7 +121,11 @@ class EtherpadLiteClient {
   }
 
   // this functions helps you to map your application author ids to etherpad lite author ids 
-  public function getMappedAuthor4($authorMapper, $name){
+  public function createAuthorIfNotExistsFor($authorMapper, $name){
+    return $this->call("createAuthorIfNotExistsFor", array(
+      "authorMapper" => $authorMapper,
+      "name"         => $name
+    ));
   }
 
   // SESSIONS

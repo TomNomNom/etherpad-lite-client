@@ -4,7 +4,7 @@
 include 'etherpad-lite-client.php';
 
 // Create an instance
-$instance = new EtherpadLiteClient('EtherpadFTW','http://beta.etherpad.org/api'); // Example URL:  http://your.hostname.tld:8080/api
+$instance = new EtherpadLiteClient('EtherpadFTW','http://beta.etherpad.org:9001/api'); // Example URL:  http://your.hostname.tld:8080/api
 
 // All API calls return a JSON value as documented in the API here: https://github.com/Pita/etherpad-lite/wiki/HTTP-API
 
@@ -20,8 +20,15 @@ echo "The AuthorID is now $authorID\n\n";
   echo "\n\ncreateAuthor Failed with message ". $e->getMessage();
 }
 
-/* Example: get Mapped Author */
-// Bug this is not written yet
+/* Example: get Mapped Author ID based on a value from your web application such as the userID */
+try {
+  $authormap = $instance->createAuthorIfNotExistsFor('John McLear', 'Cake');  // This would show my local UserID mapping John McLear as Cake on Etherpad
+} catch (Exception $e) {
+  echo "\n\ncreateAuthorIfNotExistsFor Failed with message ". $e->getMessage();
+}
+
+//cake 
+
 
 /* Example: Create a new Pad */
 try {
@@ -43,14 +50,6 @@ try {
 } catch (Exception $e) {
   // the pad already exists or something else went wrong
   echo "Failed with message ". $e->getMessage();
-}
-
-/* Example: Delete Pad */
-try {
-  $instance->deletePad('testPad');
-} catch (Exception $e) {
-  // the pad doesn't exist?
-  echo "\n\ndeletePad Failed with message ". $e->getMessage();
 }
 
 /* Example: Get Ready Only ID of a pad */
@@ -114,7 +113,15 @@ try {
   echo "End of Pad Text\n\n<hr>";
 } catch (Exception $e) {
   // the pad already exists or something else went wrong
-  echo "\n\nisgetText Failed with message ". $e->getMessage();
+  echo "\n\ngetText Failed with message ". $e->getMessage();
+}
+
+/* Example: Delete Pad */
+try {
+  $instance->deletePad('testPad');
+} catch (Exception $e) {
+  // the pad doesn't exist?
+  echo "\n\ndeletePad Failed with message ". $e->getMessage();
 }
 
 echo "<h1>Groups</h1>";
@@ -150,8 +157,11 @@ try {
 }
 
 /* Example: Create Mapped Group -- This maps a humanly readable name to a groupID */
-// $mapGroup = $instance->getMappedGroup($groupID);
-// BUG This bit is confusing as hell and the PHP function doesn't exist in the class - Waitnig on original author to write it
+try {
+  $mapGroup = $instance->createGroupIfNotExistsFor("Guests");
+} catch (Exception $e) {
+  echo "\n\ndeleteGroupFailed: ". $e->getMessage();
+}
 
 /* Example: Delete a Group */
 try {

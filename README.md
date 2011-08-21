@@ -12,7 +12,9 @@ This PHP Etherpad Lite class allows you to easily interact with Etherpad Lite AP
 
 #2 Examples
 
-Examples are located in examples.php
+See it live here http://beta.etherpad.org/example.php
+
+Examples are located in examples.php and example_big.php.  examples.php contains an example for each API call.  example_big.php contains a UI for managing pads.
 
 This example is the most commonly used, the example displays a pads text on the screen:
 

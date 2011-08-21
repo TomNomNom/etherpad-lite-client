@@ -28,16 +28,19 @@ class EtherpadLiteClient {
       $arguments
     );
     $url = $this->baseUrl."/".self::API_VERSION."/".$function."?".http_build_query($query);
-
     // not all PHP installs have access to curl
     if (function_exists('curl_init')){
       $c = curl_init($url);
       curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($c, CURLOPT_TIMEOUT, 2);
+      curl_setopt($c, CURLOPT_TIMEOUT, 20);
       $result = curl_exec($c);
       curl_close($c);
     } else {
       $result = file_get_contents($url);
+    }
+    
+    if($result == ""){
+      throw new UnexpectedValueException("Empty or No Response from the server");
     }
     
     $result = json_decode($result);
@@ -159,7 +162,7 @@ class EtherpadLiteClient {
 
   // returns all sessions of a group 
   public function listSessionsOfGroup($groupID){
-    return $this->call("listSessionOfGroup", array(
+    return $this->call("listSessionsOfGroup", array(
       "groupID" => $groupID
     ));
   }

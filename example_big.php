@@ -81,8 +81,9 @@ if ($action){ // if an action is set then lets do it.
   {
     $name = $_GET["name"];
     try {
+      // urldecode seems to be a historical problem
       $name = urldecode($name);
-      $instance->deletePad($name);
+      $instance->deletePad($groupID . "\$" . $name);
     } catch (Exception $e) {
       // the pad doesn't exist?
       echo "\n\ndeletePad Failed with message ". $e->getMessage();
@@ -130,25 +131,28 @@ $count = 0;
 foreach($padList as $pad => $key){  // For each pad in the object
   // This should really be ordered based on last modified
   $padname = explode("$",$pad);
+  $group = $padname[0];
   $padname = $padname[1];
   $padContents = $instance->getText($pad); // Get the pad contents
   $contents = $padContents->text;
-  $pad = urlencode($pad);
+  // this should escape whitespaces at $padname. Note: whitespaces dosn't appear in new versions of etherpad-lite
+  $padnameEncoded = urlencode($padname);
+  $padUrl = $group . "\$" . $padnameEncoded;
   echo "<div class='pad'>";
-  echo "<h1><a href=$host/p/$pad>$padname</a></h1>";
+  echo "<h1><a href=$host/p/$padUrl>$padname</a></h1>";
   echo " - <h2><a onClick='$(\"#contents$count\").slideDown();'>Preview</a></h2><br/>";
   echo "<div class='contents' id=contents$count>$contents</div>";
-  echo "<h3><a href=/users.php?action=deletePad&name=$pad>Delete Pad</a></h3>";
-  echo "<h3><a href=$host/p/$pad>Edit Pad</a></h3>";
+  echo "<h3><a href=example_big.php?action=deletePad&name=$padnameEncoded>Delete Pad</a></h3>";
+  echo "<h3><a href=$host/p/$padUrl>Edit Pad</a></h3>";
   $readOnlyID = $instance->getReadOnlyID($pad);
   $readOnlyID = $readOnlyID->readOnlyID;
   echo "<h3><a href=$host/ro/$readOnlyID>Read only view</a>";
   $getpublicStatus = $instance->getPublicStatus($pad); // get Security status of the pad
   if ($getpublicStatus->publicStatus === false){
-    echo "<h3><a href=/users.php?action=makePublic&name=$pad>Make pad public</a></h3>";
+    echo "<h3><a href=example_big.php?action=makePublic&name=$padUrl>Make pad public</a></h3>";
   }
   else{
-    echo "<h3><a href=/users.php?action=makePrivate&name=$pad>Make pad private</a></h3>";
+    echo "<h3><a href=example_big.php?action=makePrivate&name=$padUrl>Make pad private</a></h3>";
   }
   echo "</div>";
   $count++;

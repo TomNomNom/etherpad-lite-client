@@ -267,6 +267,9 @@ class EtherpadLiteClient {
 
   // sets a boolean for the public status of a pad 
   public function setPublicStatus($padID, $publicStatus){
+    if (is_boolean($publicStatus)) {
+      $publlicStatus = $publicStatus ? "true" : "false";
+    }
     return $this->post("setPublicStatus", array(
       "padID"        => $padID,
       "publicStatus" => $publicStatus

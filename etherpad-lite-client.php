@@ -152,6 +152,13 @@ class EtherpadLiteClient {
     ));
   }
 
+  // returns the ids of all pads this author as edited
+  public function listPadsOfAuthor($authorID){
+    return $this->get("listPadsOfAuthor", array(
+      "authorID" => $authorID
+    ));
+  }
+
   // SESSIONS
   // Sessions can be created between a group and a author. This allows
   // an author to access more than one group. The sessionID will be set as
@@ -251,6 +258,20 @@ class EtherpadLiteClient {
     ));
   }
 
+  // returns the number of users currently editing this pad
+  public function padUsersCount($padID){
+    return $this->get("padUsersCount", array(
+      "padID" => $padID
+    ));
+  }
+
+  // return the time the pad was last edited as a Unix timestamp
+  public function getLastEdited($padID){
+    return $this->get("getLastEdited", array(
+      "padID" => $padID
+    ));
+  }
+
   // deletes a pad 
   public function deletePad($padID){
     return $this->post("deletePad", array(
@@ -261,6 +282,13 @@ class EtherpadLiteClient {
   // returns the read only link of a pad 
   public function getReadOnlyID($padID){
     return $this->get("getReadOnlyID", array(
+      "padID" => $padID
+    ));
+  }
+
+  // returns the ids of all authors who've edited this pad
+  public function listAuthorsOfPad($padID){
+    return $this->get("listAuthorsOfPad", array(
       "padID" => $padID
     ));
   }

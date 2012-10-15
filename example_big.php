@@ -153,7 +153,7 @@ foreach($padList as $key => $pad){  // For each pad in the object
   echo "<h3><a href=$HOST/$padUrl>Edit Pad</a></h3>";
   $readOnlyID = $instance->getReadOnlyID($pad);
   $readOnlyID = $readOnlyID->readOnlyID;
-  echo "<h3><a href=$HOST/ro/$readOnlyID>Read only view</a>";
+  echo "<h3><a href=$HOST/$readOnlyID>Read only view</a>";
   $getpublicStatus = $instance->getPublicStatus($pad); // get Security status of the pad
   if ($getpublicStatus->publicStatus === false){
     echo "<h3><a href=example_big.php?action=makePublic&name=$padUrl>Make pad public</a></h3>";

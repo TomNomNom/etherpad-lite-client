@@ -21,8 +21,8 @@ h3{display:inline;margin-right:20px;}
 <body>
 <pre>
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
 
 // Include the Class
 include 'etherpad-lite-client.php';

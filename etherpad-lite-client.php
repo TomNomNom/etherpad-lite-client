@@ -149,7 +149,7 @@ class EtherpadLiteClient {
   }
 
   // AUTHORS
-  // Theses authors are bind to the attributes the users choose (color and name). 
+  // These authors are bound to the attributes the users choose (color and name). 
 
   // creates a new author 
   public function createAuthor($name){
@@ -158,7 +158,7 @@ class EtherpadLiteClient {
     ));
   }
 
-  // this functions helps you to map your application author ids to etherpad lite author ids 
+  // helps you to map your application author ids to etherpad lite author ids 
   public function createAuthorIfNotExistsFor($authorMapper, $name){
     return $this->post("createAuthorIfNotExistsFor", array(
       "authorMapper" => $authorMapper,
@@ -173,7 +173,7 @@ class EtherpadLiteClient {
     ));
   }
 
-  // Gets an author's name
+  // gets an author's name
   public function getAuthorName($authorID){
     return $this->get("getAuthorName", array(
       "authorID" => $authorID
@@ -183,7 +183,7 @@ class EtherpadLiteClient {
   // SESSIONS
   // Sessions can be created between a group and a author. This allows
   // an author to access more than one group. The sessionID will be set as
-  // a cookie to the client and is valid until a certian date.
+  // a cookie to the client and is valid until a certain date.
 
   // creates a new session 
   public function createSession($groupID, $authorID, $validUntil){
@@ -259,7 +259,7 @@ class EtherpadLiteClient {
     ));
   }
 
-  // crerates a diff between two revisions in html
+  // creates a diff between two revisions in html
   public function createDiffHTML($padID, $startRev=null, $endRev=null){
     $params = array("padID" => $padID);
     if (isset($startRev)){
@@ -289,7 +289,7 @@ class EtherpadLiteClient {
     ));
   }
 
-  // returns the chat history ranging from...to
+  // returns the chat history ranging from ... to ...
   public function getChatHistory($padID, $start, $end){
     return $this->post("getChatHistory", array(
       "padID" => $padID,
@@ -325,7 +325,7 @@ class EtherpadLiteClient {
     ));
   }
 
-  // return the time the pad was last edited as a Unix timestamp
+  // returns the time the pad was last edited as a Unix timestamp
   public function getLastEdited($padID){
     return $this->get("getLastEdited", array(
       "padID" => $padID
@@ -346,7 +346,7 @@ class EtherpadLiteClient {
     ));
   }
 
-  // returns the ids of all authors who've edited this pad
+  // returns the ids of all authors who edited this pad
   public function listAuthorsOfPad($padID){
     return $this->get("listAuthorsOfPad", array(
       "padID" => $padID
@@ -386,14 +386,14 @@ class EtherpadLiteClient {
     ));
   }
 
-  // Get pad users
+  // gets pad users
   public function padUsers($padID){
     return $this->get("padUsers", array(
       "padID" => $padID
     ));
   }
 
-  // Send all clients a message
+  // sends all clients a message
   public function sendClientsMessage($padID, $msg){
     return $this->post("sendClientsMessage", array(
       "padID" => $padID,
@@ -401,7 +401,7 @@ class EtherpadLiteClient {
     ));
   }
 
-  // Check validity of token
+  // checks validity of token
   public function checkToken(){
     return $this->post("checkToken");
   }

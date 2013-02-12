@@ -1,7 +1,7 @@
 <?php
 class EtherpadLiteClient {
 
-  const API_VERSION             = '1.1';
+  const API_VERSION             = '1.2.7';
 
   const CODE_OK                 = 0;
   const CODE_INVALID_PARAMETERS = 1;
@@ -129,6 +129,11 @@ class EtherpadLiteClient {
     ));
   }
 
+  // returns all pads
+  public function listAllPads(){
+    return $this->get("listAllPads");
+  }
+
   // creates a new pad in this group 
   public function createGroupPad($groupID, $padName, $text){
     return $this->post("createGroupPad", array(
@@ -254,6 +259,45 @@ class EtherpadLiteClient {
     ));
   }
 
+  // crerates a diff between two revisions in html
+  public function createDiffHTML($padID, $startRev=null, $endRev=null){
+    $params = array("padID" => $padID);
+    if (isset($startRev)){
+      $params["startRev"] = $startRev;
+    }
+    if (isset($endRev)){
+      $params["endRev"] = $endRev;
+    }
+    return $this->post("setHTML", array(
+      "padID" => $padID, 
+      "startRev"  => $startRev,
+      "endRev"  => $endRev
+    ));
+  } 
+
+  // returns the complete chat history
+  public function getChatHistory($padID){
+    return $this->post("getChatHistory", array(
+      "padID" => $padID
+    ));
+  }
+
+  // returns the head of the chat
+  public function getChatHead($padID){
+    return $this->post("getChatHead", array(
+      "padID" => $padID
+    ));
+  }
+
+  // returns the chat history ranging from...to
+  public function getChatHistory($padID, $start, $end){
+    return $this->post("getChatHistory", array(
+      "padID" => $padID,
+      "start" => $start,
+      "end" => $end
+    ));
+  }
+
   // PAD
   // Group pads are normal pads, but with the name schema
   // GROUPID$PADNAME. A security manager controls access of them and its
@@ -356,5 +400,9 @@ class EtherpadLiteClient {
       "msg"   => $msg
     ));
   }
-}
 
+  // Check validity of token
+  public function checkToken(){
+    return $this->post("checkToken");
+  }
+}

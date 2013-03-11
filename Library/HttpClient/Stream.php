@@ -4,8 +4,8 @@ class HttpClient_Stream extends HttpClient {
   public function get($url){
     $params = array(
       'http' => array(
-        'method' => $method, 
-        'ignore_errors' => true, 
+        'method' => 'GET',
+        'ignore_errors' => true,
         'header' => 'Content-Type: application/x-www-form-urlencoded'
       )
     );
@@ -18,8 +18,8 @@ class HttpClient_Stream extends HttpClient {
   public function post($url, $postdata){
     $params = array(
       'http' => array(
-        'method'        => $method, 
-        'ignore_errors' => true, 
+        'method'        => 'POST',
+        'ignore_errors' => true,
         'header'        => 'Content-Type: application/x-www-form-urlencoded',
         'content'       => $postdata
       )
